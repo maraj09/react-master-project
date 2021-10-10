@@ -3,11 +3,13 @@ import { orange } from "@mui/material/colors";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, useTheme } from "@mui/system";
-
-import React, { useState } from "react";
 import LeftDrawer from "./LeftDrawer";
 
+import React, { useState, useContext } from "react";
+import MasterContext from '../../MasterContext';
+
 const Nav = () => {
+  const contextData = useContext(MasterContext)
   const theme = useTheme();
   const below_md = useMediaQuery(theme.breakpoints.down("md"));
   const [toggle, setToggle] = useState(false);
@@ -38,7 +40,7 @@ const Nav = () => {
                 <IconButton disabled={true} sx={{ ml: 5 }}>
                   <LightModeIcon color="warning" />
                 </IconButton>
-                <Switch color="warning" />
+                <Switch color="warning" onChange={() => contextData.toggleDarkMode(contextData.darkMode)}/>
               </Box>
             )}
             {below_md && (
