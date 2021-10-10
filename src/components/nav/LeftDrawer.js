@@ -53,7 +53,7 @@ const LeftDrawer = ({toggle, toggleDrawer}) => {
               <ListItemIcon>
                 <LightModeIcon color="warning" />
               </ListItemIcon>
-              <Switch color="warning" onChange={() => contextData.toggleDarkMode(contextData.darkMode)}/>
+              <Switch color="warning" checked={contextData.darkMode} onChange={() => contextData.toggleDarkMode()}/>
             </ListItem>
           </List>
         </Box>

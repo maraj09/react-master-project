@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Nav from "./components/nav/Nav";
-import { CssBaseline } from "@mui/material";
+import { Container, CssBaseline, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/system";
 import Store from "./components/store/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MasterContext from './MasterContext';
+import MasterContext from "./MasterContext";
 
 function App() {
-  const [darkMode, setdarkMode] = useState(false);
+  const theme = useTheme();
+  const below_md = useMediaQuery(theme.breakpoints.down("md"));
+  const [darkMode, setdarkMode] = useState(true);
   const toggleDarkMode = () => {
     setdarkMode(!darkMode);
   };
@@ -23,13 +26,15 @@ function App() {
       mode: "dark",
     },
   });
-  
+
   return (
-    <MasterContext.Provider value={{ toggleDarkMode, darkMode  }}>
+    <MasterContext.Provider value={{ toggleDarkMode, darkMode, below_md }}>
       <ThemeProvider theme={darkMode ? themeDark : themeLight}>
         <CssBaseline />
         <Nav />
-        <Store />
+        <Container maxWidth="lg">
+          <Store />
+        </Container>
       </ThemeProvider>
     </MasterContext.Provider>
   );

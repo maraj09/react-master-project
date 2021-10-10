@@ -1,17 +1,16 @@
-import { AppBar, Button, Container, IconButton, Switch, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import { AppBar, Button, Container, IconButton, Switch, Toolbar, Typography } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, useTheme } from "@mui/system";
+import { Box } from "@mui/system";
 import LeftDrawer from "./LeftDrawer";
 
 import React, { useState, useContext } from "react";
-import MasterContext from '../../MasterContext';
+import MasterContext from "../../MasterContext";
 
 const Nav = () => {
-  const contextData = useContext(MasterContext)
-  const theme = useTheme();
-  const below_md = useMediaQuery(theme.breakpoints.down("md"));
+  const contextData = useContext(MasterContext);
+  const below_md = contextData.below_md;
   const [toggle, setToggle] = useState(false);
 
   const toggleDrawer = (state) => {
@@ -40,7 +39,7 @@ const Nav = () => {
                 <IconButton disabled={true} sx={{ ml: 5 }}>
                   <LightModeIcon color="warning" />
                 </IconButton>
-                <Switch color="warning" onChange={() => contextData.toggleDarkMode(contextData.darkMode)}/>
+                <Switch color="warning" checked={contextData.darkMode} onChange={() => contextData.toggleDarkMode()} />
               </Box>
             )}
             {below_md && (
