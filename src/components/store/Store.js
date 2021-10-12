@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 
 import React, { useContext, useState, useReducer } from "react";
 import MasterContext from "../../MasterContext";
+import { reducer } from "../../reducer";
+import List from "./List";
 
 const Store = () => {
   const contextData = useContext(MasterContext);
@@ -13,12 +15,6 @@ const Store = () => {
   const initialState = {
     productList: [],
   };
-  const reducer = (state, action) => {
-    if (action.type === "ADD_PRODUCT") {
-      let newProduct = [...state.productList, product];
-      return { ...state, productList: newProduct };
-    }
-  };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -28,10 +24,12 @@ const Store = () => {
     setProduct({ ...product, [name]: value });
     setFormError({ ...formError, [name]: "" });
   };
+  console.log(state.productList);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (product.productName && product.productPrice) {
-      dispatch({ type: "ADD_PRODUCT" });
+      dispatch({ type: "ADD_PRODUCT", payload: product });
+      setProduct({ productName: "", productPrice: "" });
     } else if (!product.productName) {
       setFormError({ ...formError, productName: "Please Enter Product Name!" });
     } else if (!product.productPrice) {
@@ -57,6 +55,7 @@ const Store = () => {
                 size="small"
                 sx={{ flexBasis: `100%`, my: 3 }}
                 onChange={handleChange}
+                value={product.productName}
               />
               <TextField
                 error={Boolean(formError.productPrice)}
@@ -73,6 +72,7 @@ const Store = () => {
                   inputProps: { min: 1 },
                 }}
                 sx={{ flexBasis: below_md ? `100%` : `50%`, my: 2 }}
+                value={product.productPrice}
               />
               <Box sx={{ flexBasis: `50%`, display: `flex`, alignItems: `center`, justifyContent: below_md ? `start` : `end` }}>
                 <Button type="submit" size="large" color="warning" variant="contained">
@@ -83,6 +83,7 @@ const Store = () => {
           </form>
         </CardContent>
       </Card>
+      <List />
     </>
   );
 };
