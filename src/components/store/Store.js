@@ -11,11 +11,9 @@ const Store = () => {
   const below_md = contextData.below_md;
   const [product, setProduct] = useState({ productName: "", productPrice: "" });
   const [formError, setFormError] = useState({});
-
   const initialState = {
     productList: [],
   };
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e) => {
@@ -62,7 +60,7 @@ const Store = () => {
                 helperText={formError.productPrice}
                 variant="outlined"
                 type="number"
-                label="Amount"
+                label="Price"
                 color="warning"
                 size="small"
                 name="productPrice"
