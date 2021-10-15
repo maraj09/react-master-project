@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-import React, { useContext, useState, useReducer } from "react";
+import React, { useContext, useState, useReducer, useEffect } from "react";
 import MasterContext from "../../MasterContext";
 import { reducer } from "../../reducer";
 import List from "./List";
@@ -9,12 +9,18 @@ import List from "./List";
 const Store = () => {
   const contextData = useContext(MasterContext);
   const below_md = contextData.below_md;
-  const [product, setProduct] = useState({ productName: "", productPrice: "" });
+  const [product, setProduct] = useState({ productName: "", productPrice: "", quantity: 1, id: "", totalPrice: "" });
   const [formError, setFormError] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
   const initialState = {
     productList: [],
+    totalPrice: 0,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: "TOTAL_PRICE" });
+  }, [state.productList]);
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -22,17 +28,26 @@ const Store = () => {
     setProduct({ ...product, [name]: value });
     setFormError({ ...formError, [name]: "" });
   };
-  console.log(state.productList);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (product.productName && product.productPrice) {
-      dispatch({ type: "ADD_PRODUCT", payload: product });
-      setProduct({ productName: "", productPrice: "" });
+    if (product.productName && product.productPrice && !isEditing) {
+      dispatch({ type: "ADD_PRODUCT", payload: { ...product, id: new Date().getTime().toString(), quantity: product.quantity, totalPrice: product.productPrice } });
+      setProduct({ productName: "", productPrice: "", quantity: 1 });
+    } else if (product.productName && product.productPrice && isEditing) {
+      dispatch({ type: "EDIT_PRODUCT", payload: { ...product } });
+      setIsEditing(false);
+      setProduct({ productName: "", productPrice: "", quantity: 1 });
     } else if (!product.productName) {
       setFormError({ ...formError, productName: "Please Enter Product Name!" });
     } else if (!product.productPrice) {
       setFormError({ ...formError, productPrice: "Please Give A Amount!" });
     }
+  };
+  const handleEdit = (pId) => {
+    let targetItem = state.productList.find((product) => product.id === pId);
+    setProduct({ productName: targetItem.productName, productPrice: targetItem.productPrice, quantity: targetItem.quantity, id: pId, totalPrice: targetItem.totalPrice  });
+    setIsEditing(true);
+    
   };
   return (
     <>
@@ -81,7 +96,7 @@ const Store = () => {
           </form>
         </CardContent>
       </Card>
-      <List />
+      <List {...state} handleEdit={handleEdit} dispatch={dispatch} key={state.productList.id} />
     </>
   );
 };
