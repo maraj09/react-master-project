@@ -34,7 +34,7 @@ export const reducer = (state, action) => {
   if (action.type === "EDIT_PRODUCT") {
     let newProductList = state.productList.map((product) => {
       if (product.id === action.payload.id) {
-        return { ...product, ...action.payload};
+        return { ...product, ...action.payload };
       }
       return product;
     });

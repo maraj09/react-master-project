@@ -34,7 +34,7 @@ const Store = () => {
       dispatch({ type: "ADD_PRODUCT", payload: { ...product, id: new Date().getTime().toString(), quantity: product.quantity, totalPrice: product.productPrice } });
       setProduct({ productName: "", productPrice: "", quantity: 1 });
     } else if (product.productName && product.productPrice && isEditing) {
-      dispatch({ type: "EDIT_PRODUCT", payload: { ...product } });
+      dispatch({ type: "EDIT_PRODUCT", payload: { ...product, totalPrice: (product.productPrice * product.quantity) } });
       setIsEditing(false);
       setProduct({ productName: "", productPrice: "", quantity: 1 });
     } else if (!product.productName) {
@@ -45,7 +45,7 @@ const Store = () => {
   };
   const handleEdit = (pId) => {
     let targetItem = state.productList.find((product) => product.id === pId);
-    setProduct({ productName: targetItem.productName, productPrice: targetItem.productPrice, quantity: targetItem.quantity, id: pId, totalPrice: targetItem.totalPrice  });
+    setProduct({ productName: targetItem.productName, productPrice: targetItem.productPrice, quantity: targetItem.quantity, id: pId  });
     setIsEditing(true);
     
   };
