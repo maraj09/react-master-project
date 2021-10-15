@@ -5,17 +5,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Box } from "@mui/system";
 import LeftDrawer from "./LeftDrawer";
 
-import React, { useState, useContext } from "react";
-import MasterContext from "../../MasterContext";
+import React from "react";
+import { useMasterContext } from "../../MasterContext";
+
 
 const Nav = () => {
-  const contextData = useContext(MasterContext);
-  const below_md = contextData.below_md;
-  const [toggle, setToggle] = useState(false);
 
-  const toggleDrawer = (state) => {
-    setToggle(state);
-  };
+  const {below_md, darkMode, toggleDarkMode, toggleDrawer} = useMasterContext();
+  
 
   return (
     <div>
@@ -39,7 +36,7 @@ const Nav = () => {
                 <IconButton disabled={true} sx={{ ml: 5 }}>
                   <LightModeIcon color="warning" />
                 </IconButton>
-                <Switch color="warning" checked={contextData.darkMode} onChange={() => contextData.toggleDarkMode()} />
+                <Switch color="warning" checked={darkMode} onChange={() => toggleDarkMode()} />
               </Box>
             )}
             {below_md && (
@@ -50,7 +47,7 @@ const Nav = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <LeftDrawer toggle={toggle} toggleDrawer={toggleDrawer} />
+      <LeftDrawer />
     </div>
   );
 };

@@ -1,14 +1,13 @@
 import { Button, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-import React, { useContext, useState, useReducer, useEffect } from "react";
-import MasterContext from "../../MasterContext";
+import React, { useState, useReducer, useEffect } from "react";
+import {useMasterContext} from "../../MasterContext";
 import { reducer } from "../../reducer";
 import List from "./List";
 
 const Store = () => {
-  const contextData = useContext(MasterContext);
-  const below_md = contextData.below_md;
+  const below_md = useMasterContext();
   const [product, setProduct] = useState({ productName: "", productPrice: "", quantity: 1, id: "", totalPrice: "" });
   const [formError, setFormError] = useState({});
   const [isEditing, setIsEditing] = useState(false);

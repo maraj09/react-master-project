@@ -7,15 +7,15 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { orange } from "@mui/material/colors";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
-import React, {useContext} from "react";
-import MasterContext from '../../MasterContext';
+import React from "react";
+import { useMasterContext } from "../../MasterContext";
 
-const LeftDrawer = ({toggle, toggleDrawer}) => {
-  const contextData = useContext(MasterContext)
-  
+const LeftDrawer = () => {
+  const { darkMode, toggleDarkMode, drawerToggle, toggleDrawer } = useMasterContext();
+
   return (
     <div>
-      <Drawer open={toggle} onClose={() => toggleDrawer(false)}>
+      <Drawer open={drawerToggle} onClose={() => toggleDrawer(false)}>
         <Box sx={{ width: "100%", minWidth: `300px`, display: `flex`, flexDirection: `column` }}>
           <IconButton sx={{ ml: `auto` }} onClick={() => toggleDrawer(false)}>
             <MenuOpenIcon color="error" fontSize="large" />
@@ -53,7 +53,7 @@ const LeftDrawer = ({toggle, toggleDrawer}) => {
               <ListItemIcon>
                 <LightModeIcon color="warning" />
               </ListItemIcon>
-              <Switch color="warning" checked={contextData.darkMode} onChange={() => contextData.toggleDarkMode()}/>
+              <Switch color="warning" checked={darkMode} onChange={() => toggleDarkMode()} />
             </ListItem>
           </List>
         </Box>

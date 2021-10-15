@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Nav from "./components/nav/Nav";
-import { Container, CssBaseline, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/system";
+import { Container, CssBaseline } from "@mui/material";
+
 import Store from "./components/store/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MasterContext from "./MasterContext";
+import { useMasterContext } from "./MasterContext";
 
 function App() {
-  const theme = useTheme();
-  const below_md = useMediaQuery(theme.breakpoints.down("md"));
-  const [darkMode, setdarkMode] = useState(true);
-  
-  const toggleDarkMode = () => {
-    setdarkMode(!darkMode);
-  };
+  const { darkMode } = useMasterContext();
   const themeLight = createTheme({
     palette: {
       mode: "light",
@@ -29,7 +23,7 @@ function App() {
   });
 
   return (
-    <MasterContext.Provider value={{ toggleDarkMode, darkMode, below_md }}>
+    <>
       <ThemeProvider theme={darkMode ? themeDark : themeLight}>
         <CssBaseline />
         <Nav />
@@ -37,7 +31,7 @@ function App() {
           <Store />
         </Container>
       </ThemeProvider>
-    </MasterContext.Provider>
+    </>
   );
 }
 export default App;
