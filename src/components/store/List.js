@@ -5,8 +5,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 import React from "react";
+import { useMasterContext } from "../../MasterContext";
 
-const List = ({ productList, dispatch, totalPrice, handleEdit }) => {
+const List = ({ handleEdit }) => {
+  const { productList, dispatch, totalPrice } = useMasterContext();
   return (
     <>
       <Typography variant="h4" align="center" sx={{ letterSpacing: `3px`, mt: 15, mb: 7 }}>

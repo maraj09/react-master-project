@@ -1,25 +1,17 @@
 import { Button, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-import React, { useState, useReducer, useEffect } from "react";
-import {useMasterContext} from "../../MasterContext";
-import { reducer } from "../../reducer";
+import React, { useState } from "react";
+import { useMasterContext } from "../../MasterContext";
 import List from "./List";
 
 const Store = () => {
-  const below_md = useMasterContext();
+  const { below_md, productList, dispatch } = useMasterContext();
+
   const [product, setProduct] = useState({ productName: "", productPrice: "", quantity: 1, id: "", totalPrice: "" });
+
   const [formError, setFormError] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const initialState = {
-    productList: [],
-    totalPrice: 0,
-  };
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    dispatch({ type: "TOTAL_PRICE" });
-  }, [state.productList]);
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -33,7 +25,7 @@ const Store = () => {
       dispatch({ type: "ADD_PRODUCT", payload: { ...product, id: new Date().getTime().toString(), quantity: product.quantity, totalPrice: product.productPrice } });
       setProduct({ productName: "", productPrice: "", quantity: 1 });
     } else if (product.productName && product.productPrice && isEditing) {
-      dispatch({ type: "EDIT_PRODUCT", payload: { ...product, totalPrice: (product.productPrice * product.quantity) } });
+      dispatch({ type: "EDIT_PRODUCT", payload: { ...product, totalPrice: product.productPrice * product.quantity } });
       setIsEditing(false);
       setProduct({ productName: "", productPrice: "", quantity: 1 });
     } else if (!product.productName) {
@@ -43,10 +35,9 @@ const Store = () => {
     }
   };
   const handleEdit = (pId) => {
-    let targetItem = state.productList.find((product) => product.id === pId);
-    setProduct({ productName: targetItem.productName, productPrice: targetItem.productPrice, quantity: targetItem.quantity, id: pId  });
+    let targetItem = productList.find((product) => product.id === pId);
+    setProduct({ productName: targetItem.productName, productPrice: targetItem.productPrice, quantity: targetItem.quantity, id: pId });
     setIsEditing(true);
-    
   };
   return (
     <>
@@ -95,7 +86,7 @@ const Store = () => {
           </form>
         </CardContent>
       </Card>
-      <List {...state} handleEdit={handleEdit} dispatch={dispatch} key={state.productList.id} />
+      <List handleEdit={handleEdit} key={productList.id} />
     </>
   );
 };
