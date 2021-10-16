@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, Container, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 import React, { useState } from "react";
@@ -40,7 +40,7 @@ const Store = () => {
     setIsEditing(true);
   };
   return (
-    <>
+    <Container maxWidth="xl">
       <Card raised={true} sx={{ my: 10, maxWidth: `600px`, mx: `auto` }}>
         <CardContent sx={{ p: 5 }}>
           <Typography variant="h5" sx={{ textAlign: `center`, fontWeight: `bold`, letterSpacing: `3px` }}>
@@ -69,6 +69,7 @@ const Store = () => {
                 color="warning"
                 size="small"
                 name="productPrice"
+                placeholder="500"
                 onChange={handleChange}
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -87,7 +88,7 @@ const Store = () => {
         </CardContent>
       </Card>
       <List handleEdit={handleEdit} key={productList.id} />
-    </>
+    </Container>
   );
 };
 

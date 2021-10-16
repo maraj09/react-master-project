@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Nav from "./components/nav/Nav";
-import { Container, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
 import Store from "./components/store/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMasterContext } from "./MasterContext";
+import MarkDown from "./components/markdowm/MarkDown";
 
 function App() {
   const { darkMode } = useMasterContext();
@@ -26,10 +28,17 @@ function App() {
     <>
       <ThemeProvider theme={darkMode ? themeDark : themeLight}>
         <CssBaseline />
-        <Nav />
-        <Container maxWidth="lg">
-          <Store />
-        </Container>
+        <Router>
+          <Nav />
+
+          <Route exact path="/">
+            <Store />
+          </Route>
+
+          <Route path="/markdown">
+            <MarkDown />
+          </Route>
+        </Router>
       </ThemeProvider>
     </>
   );
