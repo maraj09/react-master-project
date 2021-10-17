@@ -7,6 +7,7 @@ import Store from "./components/store/Store";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMasterContext } from "./MasterContext";
 import MarkDown from "./components/markdowm/MarkDown";
+import Items from "./components/items/Items";
 
 function App() {
   const { darkMode } = useMasterContext();
@@ -34,7 +35,9 @@ function App() {
           <Route exact path="/">
             <Store />
           </Route>
-
+          <Route path="/items">
+            <Items />
+          </Route>
           <Route path="/markdown">
             <MarkDown />
           </Route>
