@@ -1,14 +1,14 @@
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import BurstModeIcon from "@mui/icons-material/BurstMode";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
+
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { orange } from "@mui/material/colors";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 import React from "react";
 import { useMasterContext } from "../../MasterContext";
+import { navLinks } from "../../data";
+import { Link } from "react-router-dom";
 
 const LeftDrawer = () => {
   const { darkMode, toggleDarkMode, drawerToggle, toggleDrawer } = useMasterContext();
@@ -24,30 +24,18 @@ const LeftDrawer = () => {
             Projects
           </Typography>
           <List sx={{ color: orange[700] }}>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LocalGroceryStoreIcon color="warning" />
-                </ListItemIcon>
-                <ListItemText primary="Store" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BurstModeIcon color="warning" />
-                </ListItemIcon>
-                <ListItemText primary="Gallery" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BorderColorIcon color="warning" />
-                </ListItemIcon>
-                <ListItemText primary="MarkDown" />
-              </ListItemButton>
-            </ListItem>
+            {navLinks.map((navLink) => {
+              return (
+                <ListItem>
+                  <Link to={navLink.link} style={{ textDecoration: `none`, color: `inherit`, width: `100%` }}>
+                    <ListItemButton>
+                      <ListItemIcon>{navLink.icon}</ListItemIcon>
+                      <ListItemText primary={navLink.name} />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              );
+            })}
             <Divider />
             <ListItem sx={{ pl: 4, mt: 2 }}>
               <ListItemIcon>

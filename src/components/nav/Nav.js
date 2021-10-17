@@ -8,13 +8,13 @@ import LeftDrawer from "./LeftDrawer";
 import React from "react";
 import { useMasterContext } from "../../MasterContext";
 import { Link } from "react-router-dom";
+import { navLinks } from "../../data";
 
 const Nav = () => {
   const { below_md, darkMode, toggleDarkMode, toggleDrawer } = useMasterContext();
-
   return (
     <div>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" sx={{ background: darkMode ? `#2F2F2F` : `#f5f5f5` }}>
         <Container maxWidth="lg">
           <Toolbar>
             <Typography variant={below_md ? `h6` : `h5`} color={orange[700]} sx={{ letterSpacing: below_md ? `2px` : `5px` }}>
@@ -22,21 +22,15 @@ const Nav = () => {
             </Typography>
             {!below_md && (
               <Box sx={{ ml: `auto` }}>
-                <Link to="/" style={{textDecoration: `none`}}>
-                  <Button  href="" color="warning">
-                    Store
-                  </Button>
-                </Link>
-                <Link to="/gallery" style={{textDecoration: `none`}}>
-                  <Button href="" color="warning">
-                    Gallery
-                  </Button>
-                </Link>
-                <Link to="/markdown" style={{textDecoration: `none`}}>
-                  <Button href="" color="warning">
-                    MarkDown
-                  </Button>
-                </Link>
+                {navLinks.map((navLink) => {
+                  return (
+                    <Link to={navLink.link} style={{ textDecoration: `none` }}>
+                      <Button href="" color="warning">
+                        {navLink.name}
+                      </Button>
+                    </Link>
+                  );
+                })}
                 <IconButton disabled={true} sx={{ ml: 5 }}>
                   <LightModeIcon color="warning" />
                 </IconButton>
