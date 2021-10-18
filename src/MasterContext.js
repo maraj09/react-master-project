@@ -8,13 +8,11 @@ const initialState = {
   productList: [],
   totalPrice: 0,
 };
-
 const AppProvider = ({ children }) => {
   //For check Responsiveness
   const theme = useTheme();
   const below_md = useMediaQuery(theme.breakpoints.down("md"));
   //For Items
-  
 
   const [darkMode, setdarkMode] = useState(true);
   const [drawerToggle, setDrawerToggle] = useState(false);
@@ -32,7 +30,21 @@ const AppProvider = ({ children }) => {
   const toggleDarkMode = () => {
     setdarkMode(!darkMode);
   };
-  return <AppContext.Provider value={{ below_md, darkMode, toggleDarkMode, drawerToggle, toggleDrawer, ...state, dispatch }}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider
+      value={{
+        below_md,
+        darkMode,
+        toggleDarkMode,
+        drawerToggle,
+        toggleDrawer,
+        ...state,
+        dispatch,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 export const useMasterContext = () => {
   return useContext(AppContext);

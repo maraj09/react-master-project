@@ -9,9 +9,17 @@ export const reducer = (state, action) => {
       .map((product) => {
         if (product.id === action.payload) {
           if (action.type === "INCREASE_AMOUNT") {
-            return { ...product, quantity: product.quantity + 1, totalPrice: product.productPrice * (product.quantity + 1) };
+            return {
+              ...product,
+              quantity: product.quantity + 1,
+              totalPrice: product.productPrice * (product.quantity + 1),
+            };
           } else if (action.type === "DECREASE_AMOUNT") {
-            return { ...product, quantity: product.quantity - 1, totalPrice: product.productPrice * (product.quantity - 1) };
+            return {
+              ...product,
+              quantity: product.quantity - 1,
+              totalPrice: product.productPrice * (product.quantity - 1),
+            };
           }
         }
         return product;
@@ -28,7 +36,9 @@ export const reducer = (state, action) => {
     return { ...state, totalPrice };
   }
   if (action.type === "DELETE_PRODUCT") {
-    let newProductList = state.productList.filter((product) => product.id !== action.payload);
+    let newProductList = state.productList.filter(
+      (product) => product.id !== action.payload
+    );
     return { ...state, productList: newProductList };
   }
   if (action.type === "EDIT_PRODUCT") {

@@ -11,7 +11,13 @@ const MarkDown = () => {
   return (
     <Container maxWidth="xl">
       <Box sx={{ my: 10, display: `flex`, flexWrap: `wrap` }}>
-        <textarea value={markDown} onChange={(e) => setMarkDown(e.target.value)} className={`markDown_textArea ${!darkMode && `markDown_textArea_lightMode`}`}></textarea>
+        <textarea
+          value={markDown}
+          onChange={(e) => setMarkDown(e.target.value)}
+          className={`markDown_textArea ${
+            !darkMode && `markDown_textArea_lightMode`
+          }`}
+        ></textarea>
         <div className="markDown">
           <ReactMarkdown>{markDown}</ReactMarkdown>
         </div>
