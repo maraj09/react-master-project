@@ -27,7 +27,7 @@ const LeftDrawer = () => {
             {navLinks.map((navLink) => {
               return (
                 <ListItem key={navLink.id}>
-                  <Link to={navLink.link} style={{ textDecoration: `none`, color: `inherit`, width: `100%` }}>
+                  <Link to={navLink.link} onClick={()=> toggleDrawer(false)} style={{ textDecoration: `none`, color: `inherit`, width: `100%` }}>
                     <ListItemButton>
                       <ListItemIcon>{navLink.icon}</ListItemIcon>
                       <ListItemText primary={navLink.name} />
