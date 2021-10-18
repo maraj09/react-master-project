@@ -24,7 +24,7 @@ const Nav = () => {
               <Box sx={{ ml: `auto` }}>
                 {navLinks.map((navLink) => {
                   return (
-                    <Link to={navLink.link} style={{ textDecoration: `none` }}>
+                    <Link key={navLink.id} to={navLink.link} style={{ textDecoration: `none` }}>
                       <Button href="" color="warning">
                         {navLink.name}
                       </Button>

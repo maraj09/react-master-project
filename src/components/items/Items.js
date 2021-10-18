@@ -2,10 +2,13 @@ import { Button, Card, CardActions, CardContent, CardMedia, Container, TextField
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useMasterContext } from "../../MasterContext";
+import useFetch from './useFetch'
+const url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
 const Items = () => {
-  const [state, setstate] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const { below_md } = useMasterContext();
+  const [search, setSearch] = useState("")
+  const {data} = useFetch(`${url}${search}`)
   return (
     <>
       <Container maxWidth="lg">
@@ -16,26 +19,28 @@ const Items = () => {
             </Typography>
             <form>
               <Box sx={{ display: `flex`, flexWrap: `wrap` }}>
-                <TextField variant="outlined" label="Search Here" color="warning" size="small" sx={{ flexBasis: `100%`, my: 3 }} />
+                <TextField variant="outlined" label="Search Here" color="warning" size="small" sx={{ flexBasis: `100%`, my: 3 }} value={search} onChange={(e)=> setSearch(e.target.value)} />
               </Box>
             </form>
           </CardContent>
         </Card>
         <Box sx={{ display: `flex`, flexWrap: `wrap`, justifyContent: `center`, my: 7 }}>
-          {state.map((s) => {
+          {data.map((item) => {
             return (
-              <Card sx={{ width: below_md ? `100%` : 345 , m: 1 }}>
-                <CardMedia component="img" alt="green iguana" height="140" image="/static/images/cards/contemplative-reptile.jpg" />
+              <Card sx={{ width: below_md ? `100%` : 345, m: 1 }} key={item.id}>
+                <CardMedia component="img" alt="green iguana" height="250" image={item.image} />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {item.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of s
+                  {item.glass}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{mb: 1}}>
-                  <Button variant="contained" color="success">Details</Button>
+                <CardActions sx={{ mb: 1 }}>
+                  <Button variant="contained" color="success">
+                    Details
+                  </Button>
                 </CardActions>
               </Card>
             );

@@ -26,7 +26,7 @@ const LeftDrawer = () => {
           <List sx={{ color: orange[700] }}>
             {navLinks.map((navLink) => {
               return (
-                <ListItem>
+                <ListItem key={navLink.id}>
                   <Link to={navLink.link} style={{ textDecoration: `none`, color: `inherit`, width: `100%` }}>
                     <ListItemButton>
                       <ListItemIcon>{navLink.icon}</ListItemIcon>
