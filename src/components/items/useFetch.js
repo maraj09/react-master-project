@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 
 const useFetch = (url) => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchData = useCallback(async () => {
+    setLoading(true)
     try {
       const response = await fetch(url);
       const getData = await response.json();
@@ -23,14 +25,17 @@ const useFetch = (url) => {
       } else {
         setData([]);
       }
+      setLoading(false)
     } catch (error) {
       console.log(error);
+      setLoading(false)
     }
   }, [url]);
   useEffect(() => {
-    fetchData();
+    setTimeout(fetchData, 500)
+    
   }, [url, fetchData]);
-  return { data };
+  return { data, loading };
 };
 
 export default useFetch;
