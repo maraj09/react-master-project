@@ -10,7 +10,7 @@ const ItemList = ({ data, loading }) => {
   if (loading) {
     return <Loading />;
   }
-  if (data.length <= 1) {
+  if (data.length < 1) {
     return <Nothing />;
   }
   return (
