@@ -19,7 +19,6 @@ const Items = () => {
     setCurrentPage(1);
   }, [data]);
   return (
-    
     <>
       <Container maxWidth="lg">
         <SearchForm search={search} setSearch={setSearch} />

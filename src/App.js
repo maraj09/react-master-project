@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMasterContext } from "./MasterContext";
 import MarkDown from "./components/markdowm/MarkDown";
 import Items from "./components/items/Items";
+import SingleItem from "./components/items/SingleItem";
 
 function App() {
   const { darkMode } = useMasterContext();
@@ -31,7 +32,6 @@ function App() {
         <CssBaseline />
         <Router>
           <Nav />
-
           <Route exact path="/">
             <Store />
           </Route>
@@ -40,6 +40,9 @@ function App() {
           </Route>
           <Route path="/markdown">
             <MarkDown />
+          </Route>
+          <Route path="/item/:id">
+            <SingleItem />
           </Route>
         </Router>
       </ThemeProvider>
