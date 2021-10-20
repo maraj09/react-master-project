@@ -1,4 +1,4 @@
-import { Container} from "@mui/material";
+import { Container } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import ItemList from "./components/ItemList";
 import Paginations from "./components/Paginations";
@@ -23,7 +23,12 @@ const Items = () => {
       <Container maxWidth="lg">
         <SearchForm search={search} setSearch={setSearch} />
         <ItemList data={currentPosts} loading={loading} />
-        <Paginations data={data} currentPage={currentPage} setCurrentPage={setCurrentPage} postsPerPage={postsPerPage} />
+        <Paginations
+          data={data}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          postsPerPage={postsPerPage}
+        />
       </Container>
     </>
   );
